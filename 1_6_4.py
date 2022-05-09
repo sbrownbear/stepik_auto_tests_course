@@ -19,5 +19,8 @@ try:
     button = browser.find_element(By.CSS_SELECTOR, '#submit_button').click()
 
 finally:
+    # успеваем скопировать код за 30 секунд
     time.sleep(30)
+    # закрываем браузер после всех манипуляций
     browser.quit()
+# оставляем пустую строку в конце файла
