@@ -1,26 +1,36 @@
+import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import time
 
-link = "http://suninjuly.github.io/simple_form_find_task.html"
-
+# ссылка на сайт
+link = 'http://suninjuly.github.io/simple_form_find_task.html'
+# данные для ввода
+values = [
+    'Ivan',
+    'Petrov',
+    'Smolensk',
+    'Russia'
+]
+# список полей ввода
+inputs = [0]
+# запускаем вебдравер хром
 browser = webdriver.Chrome()
-browser.get(link)
-
+# пробуем
 try:
-    input1 = browser.find_element(By.TAG_NAME, 'input')
-    input1.send_keys('Ivan')
-    input2 = browser.find_element(By.NAME, 'last_name')
-    input2.send_keys('Petrov')
-    input3 = browser.find_element(By.CLASS_NAME, 'city')
-    input3.send_keys('Smolensk')
-    input4 = browser.find_element(By.ID, 'country').send_keys('Russia')
+    # открываем окно хрома по ссылке
+    browser.get(link)
+    # ищем поля по селектору и заполняем данными из values
+    for number in range(1, len(values)+1):
+        inputs.append(browser.find_element(By.CSS_SELECTOR, f'.form-group:nth-child({number}) input'))
+        inputs[number].send_keys(values[number-1])
+        print(f'{number} поле: {values[number-1]}')
 
-    button = browser.find_element(By.CSS_SELECTOR, '#submit_button').click()
-
+    # ищем кнопку submit
+    submit_button = browser.find_element(By.ID, "submit_button")
+    # нажимаем кнопку submit
+    submit_button.click()
 finally:
-    # успеваем скопировать код за 30 секунд
+    # пауза
     time.sleep(30)
-    # закрываем браузер после всех манипуляций
+    # закрываем все процессы драйвера
     browser.quit()
-# оставляем пустую строку в конце файла

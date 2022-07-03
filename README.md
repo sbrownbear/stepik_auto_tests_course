@@ -1,1 +1,1 @@
-# stepik_auto_tests_course
+### In this repo I publish the code created during the study of practice selenium webdriver.
